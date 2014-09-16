@@ -8,6 +8,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.codehaus.jettison.json.JSONArray;
 
@@ -19,10 +20,11 @@ public class V1_inventory {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public String returnAllPcParts() throws Exception{
+	public Response returnAllPcParts() throws Exception{
 		PreparedStatement query = null;
 		Connection conn = null;
 		String returnString = null;
+		Response rb = null;
 		try{
 			conn = OracleDB.OracleDBConn().getConnection();
 			query = conn.prepareStatement("Select * from PC_PARTS");
@@ -36,6 +38,7 @@ public class V1_inventory {
 			query.close();
 			
 			returnString = json.toString();
+			rb = Response.ok(returnString).build();
 			
 		}catch (Exception e){
 			e.printStackTrace();
@@ -44,6 +47,6 @@ public class V1_inventory {
 				conn.close();
 		}
 		
-		return returnString;
+		return rb;
 	}
 }
