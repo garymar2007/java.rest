@@ -18,6 +18,11 @@ import util.ToJSON;
 @Path("/v1/inventory")
 public class V1_inventory {
 
+	/**
+	 * This method will return all computer parts tha tare listed in PC_PARTS
+	 * @return
+	 * @throws Exception
+	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response returnAllPcParts() throws Exception{
