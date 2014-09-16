@@ -25,6 +25,7 @@ public class V1_inventory {
 		Connection conn = null;
 		String returnString = null;
 		Response rb = null;
+		
 		try{
 			conn = OracleDB.OracleDBConn().getConnection();
 			query = conn.prepareStatement("Select * from PC_PARTS");

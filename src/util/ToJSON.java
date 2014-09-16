@@ -5,11 +5,13 @@ import java.sql.ResultSetMetaData;
 
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONObject;
+import org.owasp.esapi.ESAPI;
 
 public class ToJSON {
 
 	public JSONArray toJSONArray(ResultSet rs) throws Exception{
 		JSONArray json = new JSONArray();
+		String temp = null;
 		try{
 			ResultSetMetaData rsmd = rs.getMetaData();
 			
@@ -45,8 +47,12 @@ public class ToJSON {
 						obj.put(columnName, rs.getNString(columnName));
 						System.out.println("ToJson: NVARCHAR");
 					}else if(rsmd.getColumnType(i) == java.sql.Types.VARCHAR){
-						obj.put(columnName, rs.getString(columnName));
-						System.out.println("ToJson: VARCHAR");
+						temp = rs.getString(columnName);
+						temp = ESAPI.encoder().canonicalize(temp);
+						temp = ESAPI.encoder().encodeForHTML(temp);
+						obj.put(columnName, temp);
+//						obj.put(columnName, rs.getString(columnName));
+//						System.out.println("ToJson: VARCHAR");
 					}else if(rsmd.getColumnType(i) == java.sql.Types.TINYINT){
 						obj.put(columnName, rs.getInt(columnName));
 						System.out.println("ToJson: TINYINT");
