@@ -27,6 +27,18 @@ public class OracleDB {
 		
 		return m_oracleDB;
 	}
+	
+	protected static Connection oraclePcPartsConnection(){
+		Connection conn = null;
+		try{
+			conn = OracleDB.OracleDBConn().getConnection();
+			return conn;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return conn;
+	}
 
 	public static void main(String[] args){
 		try {
