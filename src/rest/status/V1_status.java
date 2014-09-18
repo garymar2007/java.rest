@@ -56,30 +56,7 @@ public class V1_status {
 	@GET
 	@Produces(MediaType.TEXT_HTML)
 	public String returenDatabaseStatus() throws Exception{
-		PreparedStatement query = null;
-		String myString = null;
-		String returnString = null;
-		Connection conn = null;
-		try{
-			conn = OracleDB.OracleDBConn().getConnection();
-			query = conn.prepareStatement("select to_char(sysdate, 'YYYY-MM-DD HH24:MI:SS') DATETIME from sys.dual");
-			ResultSet rs = query.executeQuery();
-			
-			while(rs.next()){
-				myString = rs.getString("DATETIME");
-			}
-			
-			query.close();//close the connection
-			
-			returnString = "<p>Database status</p>" + "<p>Database Date/Time return: " + myString + "</p>";
-			
-		}catch(Exception e){
-			e.printStackTrace();
-		}finally{
-			if(conn != null)
-				conn.close();
-		}
-		
-		return returnString;
+		Schema dao = new Schema();
+		return dao.queryCheckDbConnection().toString();
 	}
 }

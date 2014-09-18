@@ -19,7 +19,7 @@ public class ToJSON {
 			
 			while(rs.next()){
 				JSONObject obj = new JSONObject();
-				for(int i = 1; i < numColumns; i++){
+				for(int i = 1; i <= numColumns; i++){
 					String columnName = rsmd.getColumnName(i);
 					
 					if(rsmd.getColumnType(i) == java.sql.Types.ARRAY){
